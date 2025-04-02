@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online OCR - Image to Text Converter</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<style>
+    .selected-option {
+    padding: 0;
+    font-size: 0rem; 
+     font-family: 'Roboto', sans-serif;  
+    color: #00000000;
+    background-color: #f9f9f900;
+    border: 2px solid #0073e600;
+    border-radius: 8px;
+
+}
+</style>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-content">
+      <h1>OCRGenius</h1>
+  
+      <!-- ✅ Desktop Navigation -->
+      <nav class="desktop-nav">
+        <ul>
+            <li><a href="{{ url_for('home') }}" class="translate" data-key="home">Home</a></li>
+            <li><a href="{{ url_for('image_to_word') }}" class="translate" data-key="imageToWord">IMAGE TO WORD</a></li>
+            <li><a href="{{ url_for('image_to_excel') }}" class="translate" data-key="imageToExcel">IMAGE TO EXCEL</a></li>
+            <li><a href="{{ url_for('pdf_to_image') }}" class="translate" data-key="pdfToImage">PDF TO IMAGE</a></li>       
+        </ul>
+        <div class="nav-right">
+            <!-- ✅ Language Selector (Moves to mobile menu on small screens) -->    
+            <div class="language-select">
+                <div class="selected-option" id="selected-option">
+                <select id="language-select">
+                    <option value="en">🇺🇸 English</option>
+                    <option value="hi">🇮🇳 Hindi</option>
+                    <option value="es">🇪🇸 Spanish</option>
+                    <option value="fr">🇫🇷 French</option>
+                    <option value="de">🇩🇪 German</option>
+                </select>            
+            </div>   
+         </div>
+
+            <button id="theme-toggle">🌙 Dark Mode</button>
+                </div>
+    </nav>
+  
+    <!-- ✅ Mobile Menu Button + Language Selector -->
+    <div class="mobile-menu-container">
+        <button id="menu-btn" class="menu-btn">☰ Menu</button>
+        <div class="language-select mobile-lang"></div> <!-- Language selector moves here -->
+    </div>
+  </div></header>
+  
+  <!-- ✅ Modal Navigation Menu -->
+  <div id="modal-menu" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <ul>
+            <li><a href="{{ url_for('home') }}" class="translate" data-key="home">Home</a></li>
+            <li><a href="{{ url_for('image_to_word') }}" class="translate" data-key="imageToWord">IMAGE TO WORD</a></li>
+            <li><a href="{{ url_for('image_to_excel') }}" class="translate" data-key="imageToExcel">IMAGE TO EXCEL</a></li>
+            <li><a href="{{ url_for('pdf_to_image') }}" class="translate" data-key="pdfToImage">PDF TO IMAGE</a></li>   
+        </ul>
+        <div class="modal-actions">
+            <button id="modal-theme-toggle">🌙 Dark Mode</button>
+        </div>
+    </div>
+  </div>
+  <div class="first">
+    <h1>PDF to Image Converter – Convert PDFs into High-Quality JPG or PNG</h1>
+    <p data-i18n="pdf_to_image_description">
+        Easily convert PDF documents into high-resolution images with our free online PDF to Image converter. 
+        Extract pages from <strong>PDF files</strong> and save them as <strong>JPG, PNG, or other image formats</strong> with no quality loss.
+    </p>
+</div>
+
+     
+
+<!-- Main Section for PDF to Image -->
+<main class="container">
+  <section class="pdf-to-image-section">
+    <h2>PDF to Image Converter</h2>
+    <p class="subtitle">Upload a PDF file to convert it into high-quality images and download them as a ZIP file.</p>
+
+    <!-- Upload Section -->
+    <div class="pdf-upload-area">
+      <input type="file" id="pdf-file-input" accept=".pdf" hidden>
+      <label for="pdf-file-input" class="pdf-upload-label">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <span>Drag & Drop or <span class="highlight">Choose PDF File</span></span>
+      </label>
+      <span id="pdf-file-name">No file chosen</span>      
+    </div>
+
+    <!-- Process Button -->
+    <div class="pdf-process-container">
+      <button id="pdf-process-btn">
+        <i class="fas fa-sync-alt"></i>
+        Convert to Images
+      </button>
+
+      <!-- Processing Section -->
+      <div id="pdf-processing-section" class="pdf-processing-section">
+        <div class="pdf-loader"></div>
+        <p>Processing... Please wait.</p>
+      </div>
+    </div>
+
+    <!-- Output Section -->
+    <div class="pdf-output-section">
+      <div id="pdf-images" class="pdf-image-grid"></div>
+      <div class="pdf-output-actions">
+        <button id="pdf-download-btn">
+          <i class="fas fa-download"></i>
+          Download as ZIP
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="mera">
+  <div class="row">
+      <div class="col-md">
+          <div class="feature-box">
+              <img src="/static/1st.webp" alt="PDF to Image Conversion">
+              <h2>Convert PDF to High-Quality Images</h2>
+              <p>Effortlessly transform your PDFs into high-resolution images. Supports JPG, PNG, and other formats for seamless sharing.</p>
+          </div>
+      </div>
+      <div class="col-md">
+          <div class="feature-box">
+              <img src="/static/2nd.webp" alt="Extract Pages as Images">
+              <h2>Extract Pages as Separate Images</h2>
+              <p>Convert each page of your PDF into a separate image file while preserving layout, text clarity, and formatting.</p>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-md">
+          <div class="feature-box">
+              <img src="/static/3rd.webp" alt="Secure and Fast Processing">
+              <h2>Secure & Fast PDF to Image Conversion</h2>
+              <p>Experience fast and encrypted processing to ensure data security. No watermark, no quality loss.</p>
+          </div>
+      </div>
+      <div class="col-md">
+          <div class="feature-box">
+              <img src="/static/4th.webp" alt="Works on Any Device">
+              <h2>Works on Any Device</h2>
+              <p>Access our PDF-to-image converter from any device—Windows, Mac, Android, or iOS—directly from your browser.</p>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-md">
+          <div class="feature-box">
+              <img src="/static/5th.webp" alt="High-Resolution Output">
+              <h2>High-Resolution Image Output</h2>
+              <p>Get crystal-clear image quality for professional use. Retains sharp text and vivid colors.</p>
+          </div>
+      </div>
+      <div class="col-md">
+          <div class="feature-box">
+              <img src="/static/6th.png" alt="Free PDF to Image Service">
+              <h2>100% Free for Limited Use</h2>
+              <p>Convert up to 5 PDFs per hour for free. Upgrade for unlimited access.</p>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-content">
+            
+            <!-- About Section -->
+            <div class="footer-section">
+                <h3>About Online OCR</h3>
+                <p>Online OCR is a powerful text extraction tool that allows users to convert images into editable text with high accuracy.</p>
+            </div>
+  
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                  <li><a href="{{ url_for('about') }}">About</a></li>
+                  <li><a href="{{ url_for('features') }}">Key Features</a></li>
+                    <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
+                    <li><a href="{{ url_for('api_page') }}">API</a></li>
+                    <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+                </ul>
+            </div>
+  
+            <!-- Legal & Contact -->
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="{{ url_for('term') }}">Terms of Service</a></li>
+                    <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                </ul>
+            </div>
+  
+            <!-- Social & Contact -->
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/share/1HHfKfZFrg/" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/short_talks001/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/san-ansari-b0b2a4241?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p>Email: <a href="mailto:creativeshanansari@gmail.com">creativeshanansari@gmail.com</a></p>
+                <!-- <p>Phone: <a href="tel:+1234567890">+1 (234) 567-890</a></p> -->
+            </div>
+        </div>
+  
+        <!-- Back to Top -->
+        <div class="footer-bottom">
+            <p>&copy; 2024 Online OCR. All rights reserved.</p>
+            <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to Top</a>
+        </div>
+    </div>
+  </footer>
+  <!-- Scripts -->
+  <script>
+    
+    document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("modal-menu");
+  const menuBtn = document.getElementById("menu-btn");
+  const closeBtn = document.querySelector(".close-btn");
+
+  // Open Modal
+  menuBtn.addEventListener("click", () => {
+    modal.style.display = "block";
+  });
+
+  // Close Modal
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  // Close when clicking outside modal
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+});
+
+// console.log(document.body.scrollWidth, window.innerWidth);
+document.addEventListener("DOMContentLoaded", function () {
+    const languageSelectContainer = document.querySelector(".language-select"); // Full container div
+    const mobileMenuContainer = document.querySelector(".mobile-menu-container"); // Mobile container
+    const navRight = document.querySelector(".nav-right"); // Desktop container
+    const languageSelect = document.getElementById("language-select");
+
+// ✅ Function to Translate Content Based on Selected Language
+function translateContent(language) {
+    const translations = {
+        "en": {
+            "home": "Home",
+            "imageToWord": "IMAGE TO WORD",
+            "imageToExcel": "IMAGE TO EXCEL",
+            "pdfToImage": "PDF TO IMAGE",
+            "darkMode": "🌙 Dark Mode",
+        "pdf_to_image_description": "Easily convert PDF documents into high-resolution images with our free online PDF to Image converter. Extract pages from PDF files and save them as JPG, PNG, or other image formats with no quality loss.",
+    },
+        "hi": {
+            "home": "होम",
+            "imageToWord": "छवि से शब्द",
+            "imageToExcel": "छवि से एक्सेल",
+            "pdfToImage": "पीडीएफ से छवि",
+            "darkMode": "🌙 डार्क मोड",
+            "pdf_to_image_description": "हमारे मुफ्त ऑनलाइन पीडीएफ से छवि कनवर्टर का उपयोग करके आसानी से पीडीएफ दस्तावेज़ों को उच्च-रिज़ॉल्यूशन छवियों में बदलें। पीडीएफ फ़ाइलों से पृष्ठ निकालें और उन्हें JPG, PNG, या अन्य छवि स्वरूपों में बिना गुणवत्ता हानि के सहेजें।"
+        },
+        "es": {
+            "home": "Inicio",
+            "imageToWord": "IMAGEN A WORD",
+            "imageToExcel": "IMAGEN A EXCEL",
+            "pdfToImage": "PDF A IMAGEN",
+            "darkMode": "🌙 Modo Oscuro",
+            "pdf_to_image_description": "Convierte fácilmente documentos PDF en imágenes de alta resolución con nuestro convertidor en línea gratuito de PDF a Imagen. Extrae páginas de archivos PDF y guárdalas como JPG, PNG u otros formatos de imagen sin pérdida de calidad.",
+        },
+        
+        "fr": {
+            "home": "Accueil",
+            "imageToWord": "IMAGE VERS WORD",
+            "imageToExcel": "IMAGE VERS EXCEL",
+            "pdfToImage": "PDF VERS IMAGE",
+            "darkMode": "🌙 Mode Sombre",
+            "pdf_to_image_description": "Convertissez facilement des documents PDF en images haute résolution avec notre convertisseur PDF en Image en ligne gratuit. Extrayez les pages des fichiers PDF et enregistrez-les sous forme de JPG, PNG ou d'autres formats d'image sans perte de qualité."
+        },
+        "de": {
+            "home": "Startseite",
+            "imageToWord": "BILD ZU WORD",
+            "imageToExcel": "BILD ZU EXCEL",
+            "pdfToImage": "PDF ZU BILD",
+            "darkMode": "🌙 Dunkler Modus",
+            "pdf_to_image_description": "Konvertieren Sie PDF-Dokumente ganz einfach in hochauflösende Bilder mit unserem kostenlosen Online-PDF-zu-Bild-Konverter. Extrahieren Sie Seiten aus PDF-Dateien und speichern Sie sie als JPG, PNG oder andere Bildformate ohne Qualitätsverlust."
+        }     
+    };
+    
+
+   // ✅ Translate All Elements with "data-key" or "data-i18n"
+   document.querySelectorAll("[data-key], [data-i18n]").forEach(element => {
+            const key = element.getAttribute("data-key") || element.getAttribute("data-i18n");
+            if (translations[language] && translations[language][key]) {
+                element.textContent = translations[language][key];
+            }
+        });
+
+    // ✅ Translate Dark Mode Buttons
+    const darkModeButtons = document.querySelectorAll("#theme-toggle, #modal-theme-toggle");
+    darkModeButtons.forEach(button => {
+        if (translations[language] && translations[language]["darkMode"]) {
+            button.textContent = translations[language]["darkMode"];
+        }
+    });
+}
+
+
+    // ✅ Set Saved Language (If Exists) or Default to English
+    const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+    languageSelect.value = savedLanguage;
+    translateContent(savedLanguage);
+
+    // ✅ Event Listener for Language Change
+    languageSelect.addEventListener("change", function () {
+        translateContent(languageSelect.value);
+    });
+
+    // ✅ Function to Move Language Selector Based on Screen Size
+    function moveLanguageSelector() {
+        if (window.innerWidth <= 955) {
+            // Move to Mobile Container (if not already there)
+            if (!mobileMenuContainer.contains(languageSelectContainer)) {
+                mobileMenuContainer.insertBefore(languageSelectContainer, mobileMenuContainer.firstChild);
+            }
+        } else {
+            // Move to Desktop Container (if not already there)
+            if (!navRight.contains(languageSelectContainer)) {
+                navRight.appendChild(languageSelectContainer);
+            }
+        }
+    }
+
+    moveLanguageSelector(); // Initial call
+    window.addEventListener("resize", moveLanguageSelector); // On window resize
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const themeToggle = document.getElementById("theme-toggle");
+    const modalThemeToggle = document.getElementById("modal-theme-toggle");
+
+    // ✅ Function to Toggle Dark Mode
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+
+        // Save user preference in local storage
+        if (document.body.classList.contains("dark-mode")) {
+            localStorage.setItem("darkMode", "enabled");
+        } else {
+            localStorage.setItem("darkMode", "disabled");
+        }
+    }
+
+    // ✅ Event Listener for Dark Mode Toggle
+    themeToggle.addEventListener("click", toggleDarkMode);
+    modalThemeToggle.addEventListener("click", toggleDarkMode);
+
+    // ✅ Apply Dark Mode if Previously Enabled
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+    }
+});
+
+   </script>
+<!-- Load JSZip First -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<!-- Load Tesseract.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.0.2/tesseract.min.js"></script>
+
+<script src="script.js" defer></script>
+
+<!-- Load Your JavaScript File -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

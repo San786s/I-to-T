@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Integrate our advanced OCR API with your applications using REST and SOAP interfaces. Extract text from images, scanned documents, and more with our high-accuracy cloud-based OCR service.">
+    <meta name="keywords" content="OCR API, Image to Text API, REST API, SOAP API, OCR Web Service, Text Recognition API">
+    <meta name="author" content="Your Website Name">
+    <title>OCR API - Convert Images to Text | Best OCR Web Service</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+      <!-- Header -->
+<header>
+    <div class="container header-content">
+      <h1>OCRGenius</h1>
+  
+      <!-- ✅ Desktop Navigation -->
+      <nav class="desktop-nav">
+        <ul>
+            <li><a href="{{ url_for('home') }}" class="translate" data-key="home">Home</a></li>
+            <li><a href="{{ url_for('image_to_word') }}" class="translate" data-key="imageToWord">IMAGE TO WORD</a></li>
+            <li><a href="{{ url_for('image_to_excel') }}" class="translate" data-key="imageToExcel">IMAGE TO EXCEL</a></li>
+            <li><a href="{{ url_for('pdf_to_image') }}" class="translate" data-key="pdfToImage">PDF TO IMAGE</a></li>       
+        </ul>
+        <div class="nav-right">
+            <!-- ✅ Language Selector (Moves to mobile menu on small screens) -->
+            <div class="language-select">
+                <select id="language-select">
+                    <option value="en">🇺🇸 English</option>
+                    <option value="hi">🇮🇳 Hindi</option>
+                    <option value="es">🇪🇸 Spanish</option>
+                    <option value="fr">🇫🇷 French</option>
+                    <option value="de">🇩🇪 German</option>
+                </select>            
+            </div>
+            <button id="theme-toggle">🌙 Dark Mode</button>
+        </div>
+    </nav>
+  
+    <!-- ✅ Mobile Menu Button + Language Selector -->
+    <div class="mobile-menu-container">
+        <button id="menu-btn" class="menu-btn">☰ Menu</button>
+        <div class="language-select mobile-lang"></div> <!-- Language selector moves here -->
+    </div>
+  </div></header>
+  
+  <!-- ✅ Modal Navigation Menu -->
+  <div id="modal-menu" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <ul>
+            <li><a href="{{ url_for('home') }}" class="translate" data-key="home">Home</a></li>
+            <li><a href="{{ url_for('image_to_word') }}" class="translate" data-key="imageToWord">IMAGE TO WORD</a></li>
+            <li><a href="{{ url_for('image_to_excel') }}" class="translate" data-key="imageToExcel">IMAGE TO EXCEL</a></li>
+            <li><a href="{{ url_for('pdf_to_image') }}" class="translate" data-key="pdfToImage">PDF TO IMAGE</a></li>   
+        </ul>
+        <div class="modal-actions">
+            <button id="modal-theme-toggle">🌙 Dark Mode</button>
+        </div>
+    </div>
+  </div>
+
+    <!-- Hero Section -->
+    <section class="api-hero">
+        <h1>OCR Web Service API</h1>
+        <p>Seamlessly integrate OCR technology into your applications with our cloud-based API.</p>
+    </section>
+
+    <!-- API Overview -->
+    <section class="api-overview">
+        <div class="container">
+            <h2>What is OCR API?</h2>
+            <p>Our **OCR API** is a powerful, cloud-based web service that provides **REST and SOAP** interfaces for Optical Character Recognition (OCR). This enables developers to integrate text extraction capabilities into their applications, websites, or mobile devices.</p>
+            
+            <h3>Key Features:</h3>
+            <ul>
+                <li>✔ Convert text from images and scanned documents</li>
+                <li>✔ Support for over **21+ languages**</li>
+                <li>✔ Extract specific text zones using **Zonal OCR**</li>
+                <li>✔ Convert OCR results into multiple formats: **PDF, Word, Excel, HTML, TXT**</li>
+                <li>✔ High-speed processing with scalable API requests</li>
+                <li>✔ Secure HTTPS support for encrypted data transfer</li>
+            </ul>
+        </div>
+    </section>
+
+        <!-- API Features Section -->
+        <section id="api-features">
+            <div class="api-container">
+                
+                <div class="api-feature">
+                    <h2>What is OCR API?</h2>
+                    <p>OCR API is a cloud-based service that provides web service interfaces (SOAP and REST), allowing you to integrate Optical Character Recognition (OCR) into your software, mobile devices, or web services.</p>
+                </div>
+    
+                <div class="api-feature">
+                    <h2>OCR Web Service Capabilities</h2>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Convert text from images and scanned documents (including multipage files).</li>
+                        <li><i class="fas fa-check-circle"></i> Supports Zonal OCR for extracting specific text from images.</li>
+                        <li><i class="fas fa-check-circle"></i> Convert OCR results into formats like PDF, Word, Excel, RTF, HTML, and TXT.</li>
+                        <li><i class="fas fa-check-circle"></i> Seamlessly integrate OCR output into your website or software.</li>
+                    </ul>
+                </div>
+    
+                <div class="api-feature">
+                    <h2>SOAP & REST Interfaces</h2>
+                    <p>Our OCR Web Service provides programmatic access to Optical Character Recognition (OCR) using SOAP and REST APIs. These interfaces allow applications to communicate seamlessly without complex custom coding.</p>
+                </div>
+    
+                <div class="api-feature">
+                    <h2>Why Use OCR API?</h2>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Easy integration with any programming language (Java, Python, PHP, etc.).</li>
+                        <li><i class="fas fa-check-circle"></i> Fast and accurate text extraction.</li>
+                        <li><i class="fas fa-check-circle"></i> Works across different operating systems.</li>
+                        <li><i class="fas fa-check-circle"></i> Handles high volumes of image-to-text requests.</li>
+                    </ul>
+                </div>
+                </div>
+        </section>
+
+    <!-- API Integration -->
+    <section class="api-integration">
+        <div class="container">
+            <h2>How to Integrate OCR API?</h2>
+            <p>Our OCR Web Service offers both **REST and SOAP** API interfaces, making it easy to integrate with your applications.</p>
+
+            <div class="api-box">
+                <h3>🔹 REST API Integration</h3>
+                <p>Use HTTP(S) requests to interact with the OCR API. Supports JSON/XML responses.</p>
+                <pre>
+<b>Endpoint:</b> https://api.yourwebsite.com/ocr
+<b>Method:</b> POST
+<b>Headers:</b> 
+  - Content-Type: application/json
+<b>Body:</b>
+{
+   "image_url": "https://example.com/image.jpg",
+   "language": "eng",
+   "format": "txt"
+}
+                </pre>
+            </div>
+
+            <div class="api-box">
+                <h3>🔹 SOAP API Integration</h3>
+                <p>Our SOAP API provides a WSDL interface for structured OCR requests.</p>
+                <pre>
+<b>Endpoint:</b> https://api.yourwebsite.com/ocr/soap
+<b>SOAP Request Example:</b>
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+  &lt;SOAP-ENV:Body&gt;
+    &lt;OCRRequest&gt;
+      &lt;imageUrl&gt;https://example.com/image.jpg&lt;/imageUrl&gt;
+      &lt;language&gt;eng&lt;/language&gt;
+      &lt;format&gt;txt&lt;/format&gt;
+    &lt;/OCRRequest&gt;
+  &lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+                </pre>
+            </div>
+        </div>
+    </section>
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-content">
+            
+            <!-- About Section -->
+            <div class="footer-section">
+                <h3>About Online OCR</h3>
+                <p>Online OCR is a powerful text extraction tool that allows users to convert images into editable text with high accuracy.</p>
+            </div>
+  
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                  <li><a href="{{ url_for('about') }}">About</a></li>
+                  <li><a href="{{ url_for('features') }}">Key Features</a></li>
+                    <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
+                    <li><a href="{{ url_for('api_page') }}">API</a></li>
+                    <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+                </ul>
+            </div>
+  
+            <!-- Legal & Contact -->
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="{{ url_for('term') }}">Terms of Service</a></li>
+                    <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                </ul>
+            </div>
+  
+            <!-- Social & Contact -->
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/share/1HHfKfZFrg/" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/short_talks001/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/san-ansari-b0b2a4241?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p>Email: <a href="mailto:creativeshanansari@gmail.com">creativeshanansari@gmail.com</a></p>
+                <!-- <p>Phone: <a href="tel:+1234567890">+1 (234) 567-890</a></p> -->
+            </div>
+        </div>
+  
+        <!-- Back to Top -->
+        <div class="footer-bottom">
+            <p>&copy; 2024 Online OCR. All rights reserved.</p>
+            <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to Top</a>
+        </div>
+    </div>
+  </footer>
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("modal-menu");
+  const menuBtn = document.getElementById("menu-btn");
+  const closeBtn = document.querySelector(".close-btn");
+
+  // Open Modal
+  menuBtn.addEventListener("click", () => {
+    modal.style.display = "block";
+  });
+
+  // Close Modal
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  // Close when clicking outside modal
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+});
+
+// console.log(document.body.scrollWidth, window.innerWidth);
+document.addEventListener("DOMContentLoaded", function () {
+    const languageSelectContainer = document.querySelector(".language-select"); // Full container div
+    const mobileMenuContainer = document.querySelector(".mobile-menu-container"); // Mobile container
+    const navRight = document.querySelector(".nav-right"); // Desktop container
+    const languageSelect = document.getElementById("language-select");
+
+// ✅ Function to Translate Content Based on Selected Language
+function translateContent(language) {
+    const translations = {
+        "en": {
+            "home": "Home",
+            "imageToWord": "IMAGE TO WORD",
+            "imageToExcel": "IMAGE TO EXCEL",
+            "pdfToImage": "PDF TO IMAGE",
+            "darkMode": "🌙 Dark Mode"
+        },
+        "hi": {
+            "home": "होम",
+            "imageToWord": "छवि से शब्द",
+            "imageToExcel": "छवि से एक्सेल",
+            "pdfToImage": "पीडीएफ से छवि",
+            "darkMode": "🌙 डार्क मोड"
+        },
+        "es": {
+            "home": "Inicio",
+            "imageToWord": "IMAGEN A WORD",
+            "imageToExcel": "IMAGEN A EXCEL",
+            "pdfToImage": "PDF A IMAGEN",
+            "darkMode": "🌙 Modo Oscuro"
+        },
+        "fr": {
+            "home": "Accueil",
+            "imageToWord": "IMAGE VERS WORD",
+            "imageToExcel": "IMAGE VERS EXCEL",
+            "pdfToImage": "PDF VERS IMAGE",
+            "darkMode": "🌙 Mode Sombre"
+        },
+        "de": {
+            "home": "Startseite",
+            "imageToWord": "BILD ZU WORD",
+            "imageToExcel": "BILD ZU EXCEL",
+            "pdfToImage": "PDF ZU BILD",
+            "darkMode": "🌙 Dunkler Modus"
+        }
+    };
+
+    // ✅ Translate All Elements with "data-key"
+    document.querySelectorAll(".translate").forEach(element => {
+        const key = element.getAttribute("data-key");
+        if (translations[language] && translations[language][key]) {
+            element.textContent = translations[language][key];
+        }
+    });
+
+    // ✅ Translate Dark Mode Buttons
+    const darkModeButtons = document.querySelectorAll("#theme-toggle, #modal-theme-toggle");
+    darkModeButtons.forEach(button => {
+        if (translations[language] && translations[language]["darkMode"]) {
+            button.textContent = translations[language]["darkMode"];
+        }
+    });
+
+    // ✅ Save Language Preference
+    localStorage.setItem("selectedLanguage", language);
+}
+
+
+    // ✅ Set Saved Language (If Exists) or Default to English
+    const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+    languageSelect.value = savedLanguage;
+    translateContent(savedLanguage);
+
+    // ✅ Event Listener for Language Change
+    languageSelect.addEventListener("change", function () {
+        translateContent(languageSelect.value);
+    });
+
+    // ✅ Function to Move Language Selector Based on Screen Size
+    function moveLanguageSelector() {
+        if (window.innerWidth <= 955) {
+            // Move to Mobile Container (if not already there)
+            if (!mobileMenuContainer.contains(languageSelectContainer)) {
+                mobileMenuContainer.insertBefore(languageSelectContainer, mobileMenuContainer.firstChild);
+            }
+        } else {
+            // Move to Desktop Container (if not already there)
+            if (!navRight.contains(languageSelectContainer)) {
+                navRight.appendChild(languageSelectContainer);
+            }
+        }
+    }
+
+    moveLanguageSelector(); // Initial call
+    window.addEventListener("resize", moveLanguageSelector); // On window resize
+});
+    // Sync theme button
+    const themeToggle = document.getElementById("theme-toggle");
+    const modalThemeToggle = document.getElementById("modal-theme-toggle");
+
+    // Function to toggle dark mode
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+      updateButtonText();
+      localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+    }
+
+    // Function to update button text based on current mode
+    function updateButtonText() {
+      const isDarkMode = document.body.classList.contains("dark-mode");
+      const buttonText = isDarkMode ? "☀️ Light Mode" : "🌙 Dark Mode";
+      themeToggle.textContent = buttonText;
+      modalThemeToggle.textContent = buttonText;
+    }
+
+    // Add event listeners to both buttons
+    themeToggle.addEventListener("click", toggleDarkMode);
+    modalThemeToggle.addEventListener("click", toggleDarkMode);
+
+    // Initialize button text on page load
+    if (localStorage.getItem("darkMode") === "true") {
+      document.body.classList.add("dark-mode");
+    }
+    updateButtonText();
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.0.2/tesseract.min.js"></script>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

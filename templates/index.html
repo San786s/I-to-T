@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online OCR - Image to Text Converter</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+<header>
+  <div class="container header-content">
+    <h1>OCRGenius</h1>
+
+    <!-- ✅ Desktop Navigation -->
+    <nav class="desktop-nav">
+      <ul>
+          <li><a href="{{ url_for('home') }}" class="translate" data-key="home">Home</a></li>
+          <li><a href="{{ url_for('image_to_word') }}" class="translate" data-key="imageToWord">IMAGE TO WORD</a></li>
+          <li><a href="{{ url_for('image_to_excel') }}" class="translate" data-key="imageToExcel">IMAGE TO EXCEL</a></li>
+          <li><a href="{{ url_for('pdf_to_image') }}" class="translate" data-key="pdfToImage">PDF TO IMAGE</a></li>       
+      </ul>
+      <div class="nav-right">
+          <!-- ✅ Language Selector (Moves to mobile menu on small screens) -->
+          <div class="language-select">
+              <select id="language-select">
+                  <option value="en">🇺🇸 English</option>
+                  <option value="hi">🇮🇳 Hindi</option>
+                  <option value="es">🇪🇸 Spanish</option>
+                  <option value="fr">🇫🇷 French</option>
+                  <option value="de">🇩🇪 German</option>
+              </select>            
+          </div>
+          <button id="theme-toggle">🌙 Dark Mode</button>
+      </div>
+  </nav>
+
+  <!-- ✅ Mobile Menu Button + Language Selector -->
+  <div class="mobile-menu-container">
+      <button id="menu-btn" class="menu-btn">☰ Menu</button>
+      <div class="language-select mobile-lang"></div> <!-- Language selector moves here -->
+  </div>
+</div></header>
+
+<!-- ✅ Modal Navigation Menu -->
+<div id="modal-menu" class="modal">
+  <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <ul>
+          <li><a href="{{ url_for('home') }}" class="translate" data-key="home">Home</a></li>
+          <li><a href="{{ url_for('image_to_word') }}" class="translate" data-key="imageToWord">IMAGE TO WORD</a></li>
+          <li><a href="{{ url_for('image_to_excel') }}" class="translate" data-key="imageToExcel">IMAGE TO EXCEL</a></li>
+          <li><a href="{{ url_for('pdf_to_image') }}" class="translate" data-key="pdfToImage">PDF TO IMAGE</a></li>   
+      </ul>
+      <div class="modal-actions">
+          <button id="modal-theme-toggle">🌙 Dark Mode</button>
+      </div>
+  </div>
+</div>
+
+
+  <div class="first">
+    <h1>Image to Text Converter – Convert Images, PDFs, and Screenshots into Editable Text</h1>
+    <p>Convert images and scanned documents into editable text instantly using our free online OCR tool. Extract text from <strong>JPG, PNG, PDF</strong>, or screenshots and save them as <strong>Word, Excel, or plain text</strong>.</p>
+  </div>
+
+  <!-- Main Section -->
+  <main class="container">
+    <section class="ocr-section">
+      <h2>Image to Text Converter</h2>
+      <p>Upload an image (JPG, PNG) or PDF to extract text.</p>
+      <div class="upload-area">
+        <input type="file" id="file-input" accept=".jpg,.jpeg,.png,.pdf" hidden>
+        <label for="file-input" class="upload-label">
+          <i class="fas fa-upload"></i>
+          <span>Choose File</span>
+        </label>
+        <span id="file-name">No file chosen</span>
+      </div>
+      <div class="language-select">
+        <label for="language"><span>Select Language</span></label>
+        <div class="custom-dropdown">
+          <div class="selected-option" id="selected-option">🇺🇸 English</div>
+          <div class="options-box" id="options-box">
+            <div class="option" data-value="eng">🇺🇸 English</div>
+            <div class="option" data-value="hin">🇮🇳 Hindi</div>
+            <div class="option" data-value="spa">🇪🇸 Spanish</div>
+            <div class="option" data-value="fra">🇫🇷 French</div>
+            <div class="option" data-value="deu">🇩🇪 German</div>
+            <div class="option" data-value="chi_sim">🇨🇳 Chinese (Simplified)</div>
+            <div class="option" data-value="chi_tra">🇨🇳 Chinese (Traditional)</div>
+            <div class="option" data-value="ara">🇸🇦 Arabic</div>
+            <div class="option" data-value="por">🇵🇹 Portuguese</div>
+            <div class="option" data-value="rus">🇷🇺 Russian</div>
+            <div class="option" data-value="jpn">🇯🇵 Japanese</div>
+            <div class="option" data-value="ita">🇮🇹 Italian</div>
+            <div class="option" data-value="kor">🇰🇷 Korean</div>
+            <div class="option" data-value="tur">🇹🇷 Turkish</div>
+            <div class="option" data-value="nld">🇳🇱 Dutch</div>
+            <div class="option" data-value="pol">🇵🇱 Polish</div>
+            <div class="option" data-value="vie">🇻🇳 Vietnamese</div>
+            <div class="option" data-value="urd">🇵🇰 Urdu</div>
+            <div class="option" data-value="ben">🇧🇩 Bengali</div>
+            <div class="option" data-value="tam">🇮🇳 Tamil</div>
+            <div class="option" data-value="tel">🇮🇳 Telugu</div>
+          </div>
+        </div>
+      </div>
+
+     <div class="process-container">
+  <button id="process-btn">Extract Text</button>
+  <!-- Processing Section -->
+  <div id="processing-section" class="processing-section">
+    <div class="loader"></div>
+    <p>Processing... </p>
+  
+  </div>
+</div>
+      <div class="output-section">
+        <textarea id="output-text" placeholder="Extracted text will appear here..." readonly></textarea>
+        <div class="output-actions">
+          <button id="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+          <button id="download-btn"><i class="fas fa-download"></i> Download</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <section class="image-text-converter">
+    <h2>What is an Image to Text Converter?</h2>
+    <div class="content-wrapper">
+      <ul>
+        <li>Extract text from images (JPG, PNG, etc.).</li>
+        <li>Convert PDF to Word, Excel, or Text.</li>
+        <li>Accurate and secure OCR technology.</li>
+        <li>Free and easy to use.</li>
+      </ul>
+      <img src="https://cdn-icons-png.flaticon.com/512/18140/18140616.png" alt="Image to Text Converter Icon">
+    </div>
+  </section>
+
+<section>
+  <h2>How to Convert an Image to Text Online?</h2>
+  <p>Follow these simple steps to extract text from images and PDFs using our advanced OCR tool.</p>
+  
+  <div class="step">
+      <h3>1️⃣ Upload Your Image or PDF</h3>
+      <img src="/static/image.png" alt="My Image">
+      <p>Click the <strong>'Upload'</strong> button to select an image (JPG, PNG, BMP) or a PDF file from your device.</p>
+      <p><strong>Supported Formats:</strong> JPG, PNG, BMP, GIF, PDF</p>
+      <p><strong>Upload Options:</strong> Device, Google Drive, Dropbox</p>
+  </div>
+
+  <div class="step">
+      <h3>2️⃣ Choose Language for Better Accuracy</h3>
+      <img src="/static/image (1).png" alt="">
+      <p>Select the language of the text in your document. Our AI-powered OCR software supports multiple languages, ensuring precise text extraction.</p>
+      <p><strong>Supports:</strong> English, Spanish, French, German, Hindi, Arabic, Chinese, and more.</p>
+      <p><strong>Bonus:</strong> Our tool also recognizes handwritten text.</p>
+  </div>
+
+  <div class="step">
+      <h3>3️⃣ Click Convert & Extract Text</h3>
+      <img src="/static/image (2).png" alt="">
+      <p>Hit the <strong>'Convert'</strong> button, and our tool will instantly process the image, extracting text with high accuracy.</p>
+      <p>Preview the extracted text before downloading.</p>
+  </div>
+
+  <div class="step">
+      <h3>4️⃣ Copy or Download Your Text</h3>
+      <img src="/static/my4.PNG" alt="">
+      <p>Once the conversion is complete, you can:</p>
+      <ul>
+          <li><strong>Copy</strong> the text and paste it anywhere.</li>
+          <li><strong>Download</strong> the extracted text in your preferred format:</li>
+          <ul>
+              <li>Word (.docx) – for editing in Microsoft Word</li>
+              <li>Excel (.xlsx) – for structured data extraction</li>
+              <li>Plain Text (.txt) – for basic text storage</li>
+          </ul>
+      </ul>
+      <p>🚀 <strong>Instant, free, and no registration required!</strong></p>
+  </div>
+</section>
+
+<section>
+  <h2>Features of Our Free Online OCR Tool</h2>
+  <img src="/static/Features.jpg" alt="">
+  <ul>
+      <li><strong>High Accuracy:</strong> Extracts text with precision, even from low-quality images.</li>
+      <li><strong>Multiple File Formats:</strong> Supports JPG, PNG, GIF, BMP, TIFF, and PDFs.</li>
+      <li><strong>User-Friendly:</strong> No technical knowledge required – just upload and convert.</li>
+      <li><strong>Secure & Private:</strong> Files are processed securely and deleted automatically.</li>
+      <li><strong>100% Free:</strong> Unlimited conversions with no hidden costs.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Applications of OCR Technology</h2>
+  <ul>
+      <li><strong>Students & Academics:</strong> Convert scanned textbooks and notes into editable documents.</li>
+      <li><strong>Business & Office Work:</strong> Digitize invoices, contracts, and reports.</li>
+      <li><strong>Legal & Government Documents:</strong> Convert official papers into text for editing.</li>
+      <li><strong>Healthcare Records:</strong> Extract medical notes and prescriptions.</li>
+      <li><strong>Personal Use:</strong> Copy text from images, posters, and scanned documents.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Benefits of Using an Online OCR Tool</h2>
+  <ul>
+      <li><strong>Time-Saving:</strong> No manual typing, extract text instantly.</li>
+      <li><strong>Boosts Productivity:</strong> Automates data entry and document processing.</li>
+      <li><strong>Improves Accuracy:</strong> Eliminates human errors.</li>
+      <li><strong>Accessible Anywhere:</strong> Works on any device with an internet connection.</li>
+      <li><strong>Eco-Friendly:</strong> Reduce paper usage by digitizing documents.</li>
+  </ul>
+</section>
+
+<section class="faq-container">
+  <span class="fimg">
+    <h2>Frequently Asked Questions (FAQs)</h2>
+      <img src="https://cdn-icons-png.flaticon.com/512/4403/4403555.png" alt="">
+    </span>
+
+    <div class="faq-item">
+        <div class="faq-question">1. Is OCR technology accurate? <span>▼</span></div>
+        <div class="faq-answer">Yes, OCR (Optical Character Recognition) technology has advanced significantly and can extract text with over 95% accuracy, especially when working with high-quality images.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">2. What file formats are supported? <span>▼</span></div>
+        <div class="faq-answer">Our Image to Text Converter supports JPG, PNG, BMP, GIF, TIFF, and PDF formats for seamless text extraction.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">3. Is the Image to Text Converter free to use? <span>▼</span></div>
+        <div class="faq-answer">Yes! Our online OCR tool is completely free, with no hidden charges or restrictions.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">4. Can I convert handwritten text using OCR? <span>▼</span></div>
+        <div class="faq-answer">OCR technology can recognize handwritten text, but accuracy depends on the clarity and neatness of the handwriting.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">5. Is my data secure? <span>▼</span></div>
+        <div class="faq-answer">Yes, we respect your privacy. All uploaded files are processed securely and deleted automatically after conversion.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">6. Does OCR work for multiple languages? <span>▼</span></div>
+        <div class="faq-answer">Yes, our OCR tool supports multiple languages, including English, Spanish, French, German, and more.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">7. Can I extract text from scanned PDFs? <span>▼</span></div>
+        <div class="faq-answer">Absolutely! Our OCR tool allows you to extract text from scanned PDFs and convert them into editable formats.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">8. How long does it take to convert an image to text? <span>▼</span></div>
+        <div class="faq-answer">The process takes only a few seconds, depending on the image size and quality.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">9. Can I convert multiple images at once? <span>▼</span></div>
+        <div class="faq-answer">Currently, we support one file at a time, but bulk conversion features are coming soon.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">10. Do I need to install software? <span>▼</span></div>
+        <div class="faq-answer">No, our OCR tool is completely online. You can access it from any browser without installing any software.</div>
+    </div>
+</section>
+
+
+<section>
+  <h2>Conclusion</h2>
+  <p><span>A free Image to Text Converter is an essential tool for students, professionals, and businesses. Our <strong>OCR Online Tool</strong> provides a fast, accurate, and secure solution for converting images into editable text.</span></p>
+  <p><strong>Try our free online OCR tool today and simplify your document management!</strong></p>
+</section>
+
+<div class="down">
+  <h3>Keywords:</h3>
+  <p>Image to Text Converter, OCR Online, Free OCR Tool, Convert Image to Text, Extract Text from Image, Convert PDF to Word, Optical Character Recognition, Online OCR, Picture to Text Converter, Convert Scanned Documents, Image Text Extraction Tool, OCR for PDF to Word, Text Scanner Online</p>
+</div>
+<!-- Footer -->
+<footer>
+  <div class="footer-container">
+      <div class="footer-content">
+          
+          <!-- About Section -->
+          <div class="footer-section">
+              <h3>About Online OCR</h3>
+              <p>Online OCR is a powerful text extraction tool that allows users to convert images into editable text with high accuracy.</p>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="footer-section">
+              <h3>Quick Links</h3>
+              <ul>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('features') }}">Key Features</a></li>
+                  <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
+                  <li><a href="{{ url_for('api_page') }}">API</a></li>
+                  <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+              </ul>
+          </div>
+
+          <!-- Legal & Contact -->
+          <div class="footer-section">
+              <h3>Legal</h3>
+              <ul>
+                  <li><a href="{{ url_for('term') }}">Terms of Service</a></li>
+                  <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+                  <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+              </ul>
+          </div>
+
+            <!-- Social & Contact -->
+            <div class="footer-section">
+              <h3>Connect With Us</h3>
+              <div class="social-links">
+                  <a href="https://www.facebook.com/share/1HHfKfZFrg/" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                  <a href="https://www.instagram.com/short_talks001/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                  <a href="https://www.linkedin.com/in/san-ansari-b0b2a4241?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+              </div>
+              <p>Email: <a href="mailto:creativeshanansari@gmail.com">creativeshanansari@gmail.com</a></p>
+              <!-- <p>Phone: <a href="tel:+1234567890">+1 (234) 567-890</a></p> -->
+          </div>
+      </div>
+
+      <!-- Back to Top -->
+      <div class="footer-bottom">
+          <p>&copy; 2024 Online OCR. All rights reserved.</p>
+          <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to Top</a>
+      </div>
+  </div>
+</footer>
+
+
+  <!-- Scripts -->
+   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("modal-menu");
+  const menuBtn = document.getElementById("menu-btn");
+  const closeBtn = document.querySelector(".close-btn");
+
+  // Open Modal
+  menuBtn.addEventListener("click", () => {
+    modal.style.display = "block";
+  });
+
+  // Close Modal
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  // Close when clicking outside modal
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+});
+
+// console.log(document.body.scrollWidth, window.innerWidth);
+document.addEventListener("DOMContentLoaded", function () {
+    const languageSelectContainer = document.querySelector(".language-select"); // Full container div
+    const mobileMenuContainer = document.querySelector(".mobile-menu-container"); // Mobile container
+    const navRight = document.querySelector(".nav-right"); // Desktop container
+    const languageSelect = document.getElementById("language-select");
+
+// ✅ Function to Translate Content Based on Selected Language
+function translateContent(language) {
+    const translations = {
+        "en": {
+            "home": "Home",
+            "imageToWord": "IMAGE TO WORD",
+            "imageToExcel": "IMAGE TO EXCEL",
+            "pdfToImage": "PDF TO IMAGE",
+            "darkMode": "🌙 Dark Mode"
+        },
+        "hi": {
+            "home": "होम",
+            "imageToWord": "छवि से शब्द",
+            "imageToExcel": "छवि से एक्सेल",
+            "pdfToImage": "पीडीएफ से छवि",
+            "darkMode": "🌙 डार्क मोड"
+        },
+        "es": {
+            "home": "Inicio",
+            "imageToWord": "IMAGEN A WORD",
+            "imageToExcel": "IMAGEN A EXCEL",
+            "pdfToImage": "PDF A IMAGEN",
+            "darkMode": "🌙 Modo Oscuro"
+        },
+        "fr": {
+            "home": "Accueil",
+            "imageToWord": "IMAGE VERS WORD",
+            "imageToExcel": "IMAGE VERS EXCEL",
+            "pdfToImage": "PDF VERS IMAGE",
+            "darkMode": "🌙 Mode Sombre"
+        },
+        "de": {
+            "home": "Startseite",
+            "imageToWord": "BILD ZU WORD",
+            "imageToExcel": "BILD ZU EXCEL",
+            "pdfToImage": "PDF ZU BILD",
+            "darkMode": "🌙 Dunkler Modus"
+        }
+    };
+
+    // ✅ Translate All Elements with "data-key"
+    document.querySelectorAll(".translate").forEach(element => {
+        const key = element.getAttribute("data-key");
+        if (translations[language] && translations[language][key]) {
+            element.textContent = translations[language][key];
+        }
+    });
+
+    // ✅ Translate Dark Mode Buttons
+    const darkModeButtons = document.querySelectorAll("#theme-toggle, #modal-theme-toggle");
+    darkModeButtons.forEach(button => {
+        if (translations[language] && translations[language]["darkMode"]) {
+            button.textContent = translations[language]["darkMode"];
+        }
+    });
+
+    // ✅ Save Language Preference
+    localStorage.setItem("selectedLanguage", language);
+}
+
+
+    // ✅ Set Saved Language (If Exists) or Default to English
+    const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+    languageSelect.value = savedLanguage;
+    translateContent(savedLanguage);
+
+    // ✅ Event Listener for Language Change
+    languageSelect.addEventListener("change", function () {
+        translateContent(languageSelect.value);
+    });
+
+    // ✅ Function to Move Language Selector Based on Screen Size
+    function moveLanguageSelector() {
+        if (window.innerWidth <= 955) {
+            // Move to Mobile Container (if not already there)
+            if (!mobileMenuContainer.contains(languageSelectContainer)) {
+                mobileMenuContainer.insertBefore(languageSelectContainer, mobileMenuContainer.firstChild);
+            }
+        } else {
+            // Move to Desktop Container (if not already there)
+            if (!navRight.contains(languageSelectContainer)) {
+                navRight.appendChild(languageSelectContainer);
+            }
+        }
+    }
+
+    moveLanguageSelector(); // Initial call
+    window.addEventListener("resize", moveLanguageSelector); // On window resize
+});
+
+   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.0.2/tesseract.min.js"></script>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

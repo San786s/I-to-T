@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get in touch with us for any inquiries related to our OCR API services.">
+    <title>Contact Us - OCR API</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+      <!-- Header -->
+<header>
+    <div class="container header-content">
+      <h1>OCRGenius</h1>
+  
+      <!-- ✅ Desktop Navigation -->
+      <nav class="desktop-nav">
+        <ul>
+            <li><a href="{{ url_for('home') }}" class="translate" data-key="home">Home</a></li>
+            <li><a href="{{ url_for('image_to_word') }}" class="translate" data-key="imageToWord">IMAGE TO WORD</a></li>
+            <li><a href="{{ url_for('image_to_excel') }}" class="translate" data-key="imageToExcel">IMAGE TO EXCEL</a></li>
+            <li><a href="{{ url_for('pdf_to_image') }}" class="translate" data-key="pdfToImage">PDF TO IMAGE</a></li>       
+        </ul>
+        <div class="nav-right">
+            <!-- ✅ Language Selector (Moves to mobile menu on small screens) -->
+            <div class="language-select">
+                <select id="language-select">
+                    <option value="en">🇺🇸 English</option>
+                    <option value="hi">🇮🇳 Hindi</option>
+                    <option value="es">🇪🇸 Spanish</option>
+                    <option value="fr">🇫🇷 French</option>
+                    <option value="de">🇩🇪 German</option>
+                </select>            
+            </div>
+            <button id="theme-toggle">🌙 Dark Mode</button>
+        </div>
+    </nav>
+  
+    <!-- ✅ Mobile Menu Button + Language Selector -->
+    <div class="mobile-menu-container">
+        <button id="menu-btn" class="menu-btn">☰ Menu</button>
+        <div class="language-select mobile-lang"></div> <!-- Language selector moves here -->
+    </div>
+  </div></header>
+  
+  <!-- ✅ Modal Navigation Menu -->
+  <div id="modal-menu" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <ul>
+            <li><a href="{{ url_for('home') }}" class="translate" data-key="home">Home</a></li>
+            <li><a href="{{ url_for('image_to_word') }}" class="translate" data-key="imageToWord">IMAGE TO WORD</a></li>
+            <li><a href="{{ url_for('image_to_excel') }}" class="translate" data-key="imageToExcel">IMAGE TO EXCEL</a></li>
+            <li><a href="{{ url_for('pdf_to_image') }}" class="translate" data-key="pdfToImage">PDF TO IMAGE</a></li>   
+        </ul>
+        <div class="modal-actions">
+            <button id="modal-theme-toggle">🌙 Dark Mode</button>
+        </div>
+    </div>
+  </div>
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <h1>Contact Us</h1>
+        <p>Have any questions? Feel free to reach out, and we’ll get back to you as soon as possible.</p>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="contact-container">
+        <div class="contact-info">
+            <h2>Get in Touch</h2>
+            <p>We are here to help you with any queries or concerns. Contact us via email or fill out the form.</p>
+            <ul>
+                <li><strong>Email:</strong> support@yourocrwebsite.com</li>
+                <li><strong>Phone:</strong> +91-1234567890</li>
+                <li><strong>Address:</strong> Your Office Address, India</li>
+            </ul>
+        </div>
+
+        <div class="contact-form">
+            <h2>Send Us a Message</h2>
+            <form id="contactForm">
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+                <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit" class="btn-submit">Send Message</button>
+            </form>
+            <p id="form-status"></p>
+        </div>
+    </section>
+
+    <!-- Social Media Links -->
+    <section class="contact-social">
+        <h2>Connect with Us</h2>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/share/1HHfKfZFrg/" target="_blank">🔵 Facebook</a>
+            <a href="https://www.instagram.com/short_talks001/" target="_blank">🟢 Instagram</a>
+            <a href="https://youtube.com/@tech_san000?si=Dok0O7vGXcsMzmKJ" target="_blank">🔴 YouTube</a>
+            <a href="https://www.linkedin.com/in/san-ansari-b0b2a4241?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">🔷 LinkedIn</a>
+        </div>
+    </section>
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-content">
+            
+            <!-- About Section -->
+            <div class="footer-section">
+                <h3>About Online OCR</h3>
+                <p>Online OCR is a powerful text extraction tool that allows users to convert images into editable text with high accuracy.</p>
+            </div>
+  
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                  <li><a href="{{ url_for('about') }}">About</a></li>
+                  <li><a href="{{ url_for('features') }}">Key Features</a></li>
+                    <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
+                    <li><a href="{{ url_for('api_page') }}">API</a></li>
+                    <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+                </ul>
+            </div>
+  
+            <!-- Legal & Contact -->
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="{{ url_for('term') }}">Terms of Service</a></li>
+                    <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                </ul>
+            </div>
+  
+            <!-- Social & Contact -->
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/share/1HHfKfZFrg/" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/short_talks001/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/san-ansari-b0b2a4241?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p>Email: <a href="mailto:creativeshanansari@gmail.com">creativeshanansari@gmail.com</a></p>
+                <!-- <p>Phone: <a href="tel:+1234567890">+1 (234) 567-890</a></p> -->
+            </div>
+        </div>
+  
+        <!-- Back to Top -->
+        <div class="footer-bottom">
+            <p>&copy; 2024 Online OCR. All rights reserved.</p>
+            <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to Top</a>
+        </div>
+    </div>
+  </footer>
+
+<script>
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let subject = document.getElementById("subject").value.trim();
+    let message = document.getElementById("message").value.trim();
+    let statusMessage = document.getElementById("form-status");
+
+    if (name === "" || email === "" || subject === "" || message === "") {
+        statusMessage.style.color = "red";
+        statusMessage.innerText = "⚠️ Please fill out all fields.";
+        return;
+    }
+
+    // Simulate a successful form submission
+    statusMessage.style.color = "green";
+    statusMessage.innerText = "✅ Message sent successfully! We will get back to you soon.";
+
+    // Reset form fields after submission
+    document.getElementById("contactForm").reset();
+});
+document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("modal-menu");
+  const menuBtn = document.getElementById("menu-btn");
+  const closeBtn = document.querySelector(".close-btn");
+
+  // Open Modal
+  menuBtn.addEventListener("click", () => {
+    modal.style.display = "block";
+  });
+
+  // Close Modal
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  // Close when clicking outside modal
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+});
+
+// console.log(document.body.scrollWidth, window.innerWidth);
+document.addEventListener("DOMContentLoaded", function () {
+    const languageSelectContainer = document.querySelector(".language-select"); // Full container div
+    const mobileMenuContainer = document.querySelector(".mobile-menu-container"); // Mobile container
+    const navRight = document.querySelector(".nav-right"); // Desktop container
+    const languageSelect = document.getElementById("language-select");
+
+// ✅ Function to Translate Content Based on Selected Language
+function translateContent(language) {
+    const translations = {
+        "en": {
+            "home": "Home",
+            "imageToWord": "IMAGE TO WORD",
+            "imageToExcel": "IMAGE TO EXCEL",
+            "pdfToImage": "PDF TO IMAGE",
+            "darkMode": "🌙 Dark Mode"
+        },
+        "hi": {
+            "home": "होम",
+            "imageToWord": "छवि से शब्द",
+            "imageToExcel": "छवि से एक्सेल",
+            "pdfToImage": "पीडीएफ से छवि",
+            "darkMode": "🌙 डार्क मोड"
+        },
+        "es": {
+            "home": "Inicio",
+            "imageToWord": "IMAGEN A WORD",
+            "imageToExcel": "IMAGEN A EXCEL",
+            "pdfToImage": "PDF A IMAGEN",
+            "darkMode": "🌙 Modo Oscuro"
+        },
+        "fr": {
+            "home": "Accueil",
+            "imageToWord": "IMAGE VERS WORD",
+            "imageToExcel": "IMAGE VERS EXCEL",
+            "pdfToImage": "PDF VERS IMAGE",
+            "darkMode": "🌙 Mode Sombre"
+        },
+        "de": {
+            "home": "Startseite",
+            "imageToWord": "BILD ZU WORD",
+            "imageToExcel": "BILD ZU EXCEL",
+            "pdfToImage": "PDF ZU BILD",
+            "darkMode": "🌙 Dunkler Modus"
+        }
+    };
+
+    // ✅ Translate All Elements with "data-key"
+    document.querySelectorAll(".translate").forEach(element => {
+        const key = element.getAttribute("data-key");
+        if (translations[language] && translations[language][key]) {
+            element.textContent = translations[language][key];
+        }
+    });
+
+    // ✅ Translate Dark Mode Buttons
+    const darkModeButtons = document.querySelectorAll("#theme-toggle, #modal-theme-toggle");
+    darkModeButtons.forEach(button => {
+        if (translations[language] && translations[language]["darkMode"]) {
+            button.textContent = translations[language]["darkMode"];
+        }
+    });
+
+    // ✅ Save Language Preference
+    localStorage.setItem("selectedLanguage", language);
+}
+
+
+    // ✅ Set Saved Language (If Exists) or Default to English
+    const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+    languageSelect.value = savedLanguage;
+    translateContent(savedLanguage);
+
+    // ✅ Event Listener for Language Change
+    languageSelect.addEventListener("change", function () {
+        translateContent(languageSelect.value);
+    });
+
+    // ✅ Function to Move Language Selector Based on Screen Size
+    function moveLanguageSelector() {
+        if (window.innerWidth <= 955) {
+            // Move to Mobile Container (if not already there)
+            if (!mobileMenuContainer.contains(languageSelectContainer)) {
+                mobileMenuContainer.insertBefore(languageSelectContainer, mobileMenuContainer.firstChild);
+            }
+        } else {
+            // Move to Desktop Container (if not already there)
+            if (!navRight.contains(languageSelectContainer)) {
+                navRight.appendChild(languageSelectContainer);
+            }
+        }
+    }
+
+    moveLanguageSelector(); // Initial call
+    window.addEventListener("resize", moveLanguageSelector); // On window resize
+});
+    // Sync theme button
+    const themeToggle = document.getElementById("theme-toggle");
+    const modalThemeToggle = document.getElementById("modal-theme-toggle");
+
+    // Function to toggle dark mode
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+      updateButtonText();
+      localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+    }
+
+    // Function to update button text based on current mode
+    function updateButtonText() {
+      const isDarkMode = document.body.classList.contains("dark-mode");
+      const buttonText = isDarkMode ? "☀️ Light Mode" : "🌙 Dark Mode";
+      themeToggle.textContent = buttonText;
+      modalThemeToggle.textContent = buttonText;
+    }
+
+    // Add event listeners to both buttons
+    themeToggle.addEventListener("click", toggleDarkMode);
+    modalThemeToggle.addEventListener("click", toggleDarkMode);
+
+    // Initialize button text on page load
+    if (localStorage.getItem("darkMode") === "true") {
+      document.body.classList.add("dark-mode");
+    }
+    updateButtonText();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.0.2/tesseract.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
