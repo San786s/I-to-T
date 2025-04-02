@@ -167,12 +167,15 @@ options.forEach(option => {
   });
 });
 
-// Close options box when clicking outside
-document.addEventListener('click', (event) => {
-  if (!event.target.closest('.custom-dropdown')) {
-    optionsBox.style.display = 'none';
-  }
-});
+if (document.querySelector('.custom-dropdown')) {
+  document.addEventListener('click', (event) => {
+    const optionsBox = document.querySelector('.custom-dropdown');
+    if (!event.target.closest('.custom-dropdown')) {
+      optionsBox.style.display = 'none';
+    }
+  });
+}
+
 
 
 document.addEventListener("DOMContentLoaded", function () {

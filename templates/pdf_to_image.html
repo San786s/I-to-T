@@ -358,31 +358,7 @@ function translateContent(language) {
     moveLanguageSelector(); // Initial call
     window.addEventListener("resize", moveLanguageSelector); // On window resize
 });
-document.addEventListener("DOMContentLoaded", function () {
-    const themeToggle = document.getElementById("theme-toggle");
-    const modalThemeToggle = document.getElementById("modal-theme-toggle");
 
-    // ✅ Function to Toggle Dark Mode
-    function toggleDarkMode() {
-        document.body.classList.toggle("dark-mode");
-
-        // Save user preference in local storage
-        if (document.body.classList.contains("dark-mode")) {
-            localStorage.setItem("darkMode", "enabled");
-        } else {
-            localStorage.setItem("darkMode", "disabled");
-        }
-    }
-
-    // ✅ Event Listener for Dark Mode Toggle
-    themeToggle.addEventListener("click", toggleDarkMode);
-    modalThemeToggle.addEventListener("click", toggleDarkMode);
-
-    // ✅ Apply Dark Mode if Previously Enabled
-    if (localStorage.getItem("darkMode") === "enabled") {
-        document.body.classList.add("dark-mode");
-    }
-});
 
    </script>
 <!-- Load JSZip First -->
