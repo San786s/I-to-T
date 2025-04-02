@@ -16,11 +16,12 @@
     <!-- ✅ Desktop Navigation -->
     <nav class="desktop-nav">
       <ul>
-          <li><a href="{{ url_for('home') }}" class="translate" data-key="home">Home</a></li>
-          <li><a href="{{ url_for('image_to_word') }}" class="translate" data-key="imageToWord">IMAGE TO WORD</a></li>
-          <li><a href="{{ url_for('image_to_excel') }}" class="translate" data-key="imageToExcel">IMAGE TO EXCEL</a></li>
-          <li><a href="{{ url_for('pdf_to_image') }}" class="translate" data-key="pdfToImage">PDF TO IMAGE</a></li>       
-      </ul>
+        <li><a href="/templates/home.html" class="translate" data-key="home">Home</a></li>
+        <li><a href="/templates/image_to_word.html" class="translate" data-key="imageToWord">IMAGE TO WORD</a></li>
+        <li><a href="/templates/image_to_excel.html" class="translate" data-key="imageToExcel">IMAGE TO EXCEL</a></li>
+        <li><a href="/templates/pdf_to_image.html" class="translate" data-key="pdfToImage">PDF TO IMAGE</a></li>       
+    </ul>
+    
       <div class="nav-right">
           <!-- ✅ Language Selector (Moves to mobile menu on small screens) -->
           <div class="language-select">
@@ -48,11 +49,11 @@
   <div class="modal-content">
       <span class="close-btn">&times;</span>
       <ul>
-          <li><a href="{{ url_for('home') }}" class="translate" data-key="home">Home</a></li>
-          <li><a href="{{ url_for('image_to_word') }}" class="translate" data-key="imageToWord">IMAGE TO WORD</a></li>
-          <li><a href="{{ url_for('image_to_excel') }}" class="translate" data-key="imageToExcel">IMAGE TO EXCEL</a></li>
-          <li><a href="{{ url_for('pdf_to_image') }}" class="translate" data-key="pdfToImage">PDF TO IMAGE</a></li>   
-      </ul>
+        <li><a href="/templates/home.html" class="translate" data-key="home">Home</a></li>
+        <li><a href="/templates/image_to_word.html" class="translate" data-key="imageToWord">IMAGE TO WORD</a></li>
+        <li><a href="/templates/image_to_excel.html" class="translate" data-key="imageToExcel">IMAGE TO EXCEL</a></li>
+        <li><a href="/templates/pdf_to_image.html" class="translate" data-key="pdfToImage">PDF TO IMAGE</a></li>       
+    </ul>
       <div class="modal-actions">
           <button id="modal-theme-toggle">🌙 Dark Mode</button>
       </div>
@@ -296,27 +297,28 @@
               <p>Online OCR is a powerful text extraction tool that allows users to convert images into editable text with high accuracy.</p>
           </div>
 
-          <!-- Quick Links -->
-          <div class="footer-section">
-              <h3>Quick Links</h3>
-              <ul>
-                <li><a href="{{ url_for('about') }}">About</a></li>
-                <li><a href="{{ url_for('features') }}">Key Features</a></li>
-                  <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
-                  <li><a href="{{ url_for('api_page') }}">API</a></li>
-                  <li><a href="{{ url_for('faq') }}">FAQ</a></li>
-              </ul>
-          </div>
+<!-- Quick Links -->
+<div class="footer-section">
+  <h3>Quick Links</h3>
+  <ul>
+      <li><a href="/templates/about.html">About</a></li>
+      <li><a href="/templates/features.html">Key Features</a></li>
+      <li><a href="/templates/pricing.html">Pricing</a></li>
+      <li><a href="/templates/api_page.html">API</a></li>
+      <li><a href="/templates/faq.html">FAQ</a></li>
+  </ul>
+</div>
 
-          <!-- Legal & Contact -->
-          <div class="footer-section">
-              <h3>Legal</h3>
-              <ul>
-                  <li><a href="{{ url_for('term') }}">Terms of Service</a></li>
-                  <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
-                  <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
-              </ul>
-          </div>
+<!-- Legal & Contact -->
+<div class="footer-section">
+  <h3>Legal</h3>
+  <ul>
+      <li><a href="/templates/term.html">Terms of Service</a></li>
+      <li><a href="/templates/privacy.html">Privacy Policy</a></li>
+      <li><a href="/templates/contact.html">Contact Us</a></li>
+  </ul>
+</div>
+
 
             <!-- Social & Contact -->
             <div class="footer-section">
