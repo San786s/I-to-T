@@ -6,3 +6,4 @@ openpyxl
 flask-cors
 pytesseract
 easyocr
+arabic_reshaper
