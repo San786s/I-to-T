@@ -29,6 +29,26 @@ from paddleocr import PaddleOCR
 import concurrent.futures
 from concurrent.futures import ThreadPoolExecutor
 
+import gradio as gr
+import flask
+from flask import Flask, request, jsonify
+# Your existing imports here
+
+app = Flask(__name__)
+
+# Example function using Gradio
+def example_function(input_text):
+    return "You entered: " + input_text
+
+# Create Gradio interface
+gr_interface = gr.Interface(fn=example_function, inputs="text", outputs="text")
+
+# Route to handle your app with Flask (if you're combining Flask and Gradio)
+@app.route("/", methods=["GET", "POST"])
+def index():
+    return gr_interface.launch(share=True)  # This launches Gradio in the backend
+
+
 # Executor for parallel execution
 executor = concurrent.futures.ThreadPoolExecutor(max_workers=4)
 
