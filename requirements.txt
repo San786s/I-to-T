@@ -2,3 +2,4 @@ Flask
 gunicorn
 Pillow
 opencv-python
+openpyxl
