@@ -1,7 +1,8 @@
 Flask
 gunicorn
-Pillow
 opencv-python
+Pillow
 openpyxl
 flask-cors
 pytesseract
+easyocr
